@@ -1,0 +1,331 @@
+<html>
+    <head>
+        <!-- color pallete: https://colorpalettes.net/color-palette-4194/ -->
+        <!-- font: https://github.com/dconstruct/Bagnard/ -->
+        <style>
+            @font-face {
+                font-family: Bagnard;
+                src: url('res/BagnardSans.otf');
+            }
+            sup { line-height: 0; font-size: 75%; }
+            a,a:visited,a:active {
+                background-color:#bbbbbe;
+                color: #495464;
+                border-radius: 0.2em;
+                padding: 0.0em 0.4em;
+                text-decoration: none;
+            }
+            a:hover {
+                background-color: #bbbfca;
+            }
+            h1,h2,h3,h4,h5,h6,b {
+                background-color: #495464;
+                color: #f4f4f2;
+                border-radius: 0.2em;
+                padding: 0.2em;
+                display: inline-block;
+            }
+            body {
+                margin: 1em;
+                font-family: Bagnard;
+                background-color: #e8e8e8;
+                color: #495464;
+                line-height: 150%;
+            }
+            #content {
+                border-radius: 0.4em;
+                padding: 1em;
+                background-color: #f4f4f2;
+                margin: auto;
+                max-width: 40em;
+                min-width: 20em;
+            }
+            .after-p:after {
+                background-color: #ff0000;
+                margin-top: 1em;
+            }
+            .before-p:before {
+                margin-bottom: 1em;
+            }
+        </style>
+        <title>Seyed Sajad Kahani's Personal Page</title>
+    </head>
+    <body>
+        <div id="content">
+            <style>
+                #personal {
+                    border-radius: 0.4em;
+                    width: 8em;
+                    float: right;
+                }
+            </style>
+            <div>I am <b>Seyed Sajad Kahani</b>. <img id="personal" src="res/me.jpg" />
+            </div>
+            <div>
+                And the last update of this page is 22nd May 2020.
+            </div>
+            <h3>Who am I?</h3>
+            <div>
+                I am a human being, born in 1998. I used to work as a software engineer, a product manager and a data scientist at <a href="https://cafebazaar.ir/">Cafe Bazaar</a>, <a href="https://divar.ir/">Divar</a> and <a href="https://balad.ir/">Balad</a> and before these, a national physics Olympiad medalist. Now I'm studying bachelor of computer engineering (beside a minor degree of physics) at <a href="https://sharif.edu/">Sharif University of Technology</a> and working as a principal investigator at <a href="https://phano.us/">Phanous</a>.
+                <p></p>
+                    You can check out my <a href="res/cv.pdf">CV</a> to see a tabular and detailed version of my story.
+            </div>
+
+            <!-- Things -->
+            <style>
+                .tag {
+                    border-radius: 0.2em;
+                    padding: 0.0em 0.4em;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+                .desc {
+                    font-size: 80%;
+                }
+
+                #filter .tag {
+                    border: solid 0.8pt #b7c06f;
+                    background-color: transparent;
+                    margin: 0.1em 0.0em;
+                }
+                
+                #things .tag {
+                    background-color: #b7c06f;
+                    font-size: 80%;
+                }
+                
+                #things {
+                    padding: 0em 0.8em;
+                    min-height: 2em;
+                }
+                #nothing {
+                    display: none;
+                    text-align: center;
+                    color: #bbbbbe;
+                }
+                #things .entry {
+                    display: block;
+                    border-left: solid 1.5pt #495464;
+                    margin: 0.4em 0em;
+                    padding: 0.1em 0.5em;
+                    border-radius: 0.4em;
+                    background-color: #e8e8e8;
+                }
+                #things a.title {
+                    background-color: transparent;
+                }
+                #things .desc {
+                    display: none;
+                }
+                #things .tags {
+                    text-align: right;
+                }
+            </style>
+            <script type="text/javascript">
+                const utils = {
+                    isHidden : function(t) {
+                        return window.getComputedStyle(t).display == 'none';
+                    },
+                    hide: function(t) {
+                        let anim = t.animate([
+                            {maxHeight: t.offsetHeight + "px", opacity: 1}, 
+                            {maxHeight: "0px", opacity: 0}],
+                            {duration: 500})
+                        anim.onfinish = _ => { t.style.display = "none" };
+                    },
+                    show: function(t) {
+                        t.style.display = "block";
+                        t.animate([
+                            {maxHeight: "0px", opacity: 0},
+                            {maxHeight: t.offsetHeight + "px", opacity: 1}],
+                            {duration: 500});
+                    }
+                };
+
+                let filters = [];
+                window.onload = function() {
+                    // Process tags
+                    let tags = {}
+                    document.querySelectorAll("#things .tag").forEach( (t) => {
+                        let name = t.textContent.substring(1);
+                        t.onclick = function(e) {
+                            e.preventDefault();
+                            document.querySelector("#filter #tag-" + name).click();
+                        }
+                        t.parentElement.parentElement.classList.add("tag-" + name);
+                        if (tags[name])
+                            tags[name] ++;
+                        else
+                            tags[name] = 1;
+                    });
+                    let sortedKeys = Object.keys(tags).sort((a, b) => tags[b] > tags[a]);
+                    sortedKeys.forEach(t => {
+                        let template = document.createElement('template');
+                        template.innerHTML = `<span id="tag-${t}" class="tag">
+                            ${t} (${tags[t]})</span>`;
+                        document.querySelector("#filter")
+                            .append(...template.content.children, " ");
+                    });
+
+                    document.querySelectorAll('#filter .tag').forEach(t => {
+                        t.onclick = function(e) {
+                            e.preventDefault();
+                            tagname = t.id.substring(4); // "tag-"
+                            if (filters.includes(tagname)) {
+                                t.animate([{backgroundColor: "#b7c06f"}, 
+                                           {backgroundColor: "transparent"}],
+                                          {duration: 500, fill: "forwards"});
+                                filters = filters.filter(x => x != tagname);
+                            } else {
+                                t.animate([{backgroundColor: "transparent"}, 
+                                           {backgroundColor: "#b7c06f"}], 
+                                          {duration: 500, fill: "forwards"});
+                                filters.push(tagname);
+                            }
+
+                            let anyItem = false;
+                            document.querySelectorAll("#things .entry").forEach((t) => {
+                                let query = filters.map(x => ".tag-" + x).join("");
+                                if (query == "" || t.matches(query)) {
+                                    anyItem = true;
+                                    if (utils.isHidden(t))
+                                        utils.show(t);
+                                } else {
+                                    if (!utils.isHidden(t))
+                                        utils.hide(t);
+                                }
+                            });
+
+                            let n = document.querySelector("#nothing");
+                            if (anyItem) {
+                                if (!utils.isHidden(n))
+                                    utils.hide(n);
+                            } else {
+                                if (utils.isHidden(n))
+                                    utils.show(n);
+                            }
+                        };
+                    });
+
+                    // Process titles
+                    document.querySelectorAll("#things .title").forEach(l => {
+                        let name = l.name;
+                        l.href = "#entry-" + name;
+                        l.parentElement.id = "#entry-" + name;
+                        l.parentElement.style.cursor = "pointer";
+                        l.parentElement.onclick = function(e) {
+                            e.preventDefault();
+                            desc = l.parentElement.querySelector(".desc");
+                            if (utils.isHidden(desc)) {
+                                utils.show(desc);
+                            } else {
+                                utils.hide(desc);
+                            }
+                        }
+                    });
+                };
+            </script>
+            <h3>What do I have here?</h3>
+            <div>
+            These are my beloved projects, I am not going to mention every single effort that I did and neither want to recycle course projects as my personal projects. so these are really made with love, mostly by myself or by a significant contribution of mine.
+            <br />
+            For other projects checkout my <a href="https://github.com/sesajad">Github</a> and for other notes checkout my <a href="https://medium.com/@SSKahani">Medium</a>
+            </div>
+            <p></p>
+            <div id="filter">Filter: </div>
+            <ul id="things">
+                <li class="entry">
+                    <a class="title" name="qcpi"> A try to find a faster method for calculation of pi in quantum computers</a>
+                    <div class="desc">The project is in progress.<br />
+                    Reports can be found <a href="https://github.com/sesajad/quantumpi/">here</a></div>
+                    <div class="tags">
+                    <span class="tag">#quantum-computing</span>
+                    <span class="tag">#project</span></div></li>
+                <li class="entry">
+                    <a class="title" name="dialect">Dialect, a method to design and implement accent for programming langauges</a>
+                    <div class="desc">The project is in progress.<br />
+                        Code can be found <a href="https://github.com/sesajad/dialect/">here</a>
+                        Or read this whitepaper about it.
+                    </div>
+                    <div class="tags">
+                    <span class="tag">#programming-language</span>
+                    <span class="tag">#code</span>
+                    <span class="tag">#project</span></div></li>
+                <li class="entry">
+                    <a class="title" name="fromxtoyinz"></a>From X to Y in Z days with Spotify</a>
+                    <div class="desc">This is a project to help you get from a mood to another with the help of Spotify. (2020)
+                    It uses some linear operations and Spotify APIs.
+                    Code can be found <a href="https://github.com/sesajad/fromxtoyinz/">here</a>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">#code</span>
+                        <span class="tag">#project</span>
+                    </div>
+                <li class="entry">
+                    <a class="title" name="qtm">A lecture note for quantum turing machine</a>
+                    <div class="desc">
+                        A lecture note that has been created to be added to Prof. V. Karimipour lecture notes on QC/QI. (2020)
+                    </div>
+                    <div class="tags">
+                    <span class="tag">#quantum-computing</span>
+                    <span class="tag">#note</span>
+                    <span class="tag">#persian</span></div></li>
+                <li class="entry">
+                    <a class="title" name="qcsuprem">A description of Google's supremacy paper for computer scientists</a>
+                    <div class="desc">
+                        Created by ask of Rayanesh Magazine. (2019)
+                        This paper published in two parts at Virgool
+                            (<a href="https://virgool.io/rayanesh/%D8%A8%D8%B1%D8%AA%D8%B1%DB%8C%D9%90-%DA%A9%D9%88%D8%A7%D9%86%D8%AA%D9%88%D9%85%DB%8C-%D9%82%D8%B5%D9%87%D9%94-%D9%85%D9%82%D8%A7%D9%84%D9%87%D9%94-%DA%AF%D9%88%DA%AF%D9%84-%D9%82%D8%B3%D9%85%D8%AA-%D8%A7%D9%88%D9%84-kmsjptpxg5jw">p. 1</a>, <a href="https://virgool.io/rayanesh/%D8%A8%D8%B1%D8%AA%D8%B1%DB%8C%D9%90-%DA%A9%D9%88%D8%A7%D9%86%D8%AA%D9%88%D9%85%DB%8C-%D9%82%D8%B5%D9%87%D9%94-%D9%85%D9%82%D8%A7%D9%84%D9%87%D9%94-%DA%AF%D9%88%DA%AF%D9%84-%D9%82%D8%B3%D9%85%D8%AA-%D8%A7%D9%88%D9%84-kmsjptpxg5jw">p. 2</a>).
+                        
+                        LaTeX sourcecode is available on <a href="https://github.com/sesajad/google-supremacy-simulation/">Github</a>
+                      
+                    </div>
+                    <div class="tags">
+                    <span class="tag">#quantum-computing</span>
+                    <span class="tag">#note</span>
+                    <span class="tag">#persian</span></div></li>
+                <li class="entry">
+                    <a class="title" name="physics-teaching-res">Solovay-Kitaev Simulation for SU(2)</a>
+                    <div class="desc">A project that came from an idea by Prof. Karimipour.<br />Later, I noticed that the final conjecture of this paper was published 6 month before by a group in MIT</div>
+                    <div class="tags">
+                        <span class="tag">#quantum-computing</span>
+                        <span class="tag">#project</span>
+                        <span class="tag">#code</span></div>
+                <li class="entry">
+                    <a class="title" name="physics-teaching-res">Teaching resources for physics</a>
+                    <div class="desc">A collection of questions, exams and more that are gathered within different years</div>
+                    <div class="tags">
+                        <span class="tag">#physics</span>
+                        <span class="tag">#resource</span>
+                        <span class="tag">#persian</span></div>
+                <li class="entry">
+                    <a class="title" name="kaashi">Kaashi, a turing-complete JSON or yet another descriptive language</a>
+                    <div class="desc"></div>
+                    <div class="tags">
+                        <span class="tag">#programming-language</span>
+                        <span class="tag">#code</span>
+                        <span class="tag">#project</span></div>
+                <!-- template <li class="entry">
+                    <a class="title" name="template"></a>
+                    <div class="desc"></div>
+                    <div class="tags">
+                        <span class="tag">#quantum-computing</span>
+                        <span class="tag">#note</span>
+                        <span class="tag">#persian</span></div> -->
+                </li>
+                <div id="nothing">nothing to show, try to remove filters</div>
+            </ul>
+            <br />
+            <h3>How can you reach me?</h3>
+            <br />
+            my email address is "me [at] [this domain]".
+            <br />
+            or you can find me in <a href="https://twitter.com/sskahani">Twitter</a> or <a href="https://instagram.com/sskahani">Instagram</a>
+
+            <br />
+            <br />
+            <hr />
+            <div id="footer" style="font-size: 80%; text-align: center;">Powered by almost nothing, all rights are reserved I guess. by the way, I'm Sajad.</div>
+        </div>
+    </body>
+</html>
