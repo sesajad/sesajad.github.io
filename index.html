@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- color pallete: https://colorpalettes.net/color-palette-4194/ -->
         <!-- font: https://github.com/dconstruct/Bagnard/ -->
         <style>
@@ -27,16 +28,16 @@
             }
             body {
                 margin: 0em;
-                padding: 4em;
+                padding: 2em;
                 font-family: Bagnard;
                 font-size: 12pt;
                 background-color: #e8e8e8;
                 color: #495464;
-                line-height: 1.8;
+                line-height: 1.6;
             }
             #content {
                 border-radius: 0.4em;
-                padding: 4em;
+                padding: 2em;
                 background-color: #f4f4f2;
                 margin: auto;
                 max-width: 40em;
@@ -57,8 +58,17 @@
             <style>
                 #personal {
                     border-radius: 0.4em;
-                    width: 8em;
+                    width: 12em;
                     float: right;
+                }
+                @media only screen and (max-width: 768px) {
+                    /* mobile devices */
+                    #personal {
+                        margin-top: 1em;
+                        margin-bottom: 1em;
+                        width: 100%;
+                        float: none;
+                    }
                 }
             </style>
             <div>I am <b>Seyed Sajad Kahani</b>. <img id="personal" src="res/me.jpg" />
@@ -316,6 +326,7 @@
                 </li>
                 <div id="nothing">nothing to show, try to remove filters</div>
             </ul>
+
             <br />
             <h3>How can you reach me?</h3>
             <br />
@@ -326,7 +337,13 @@
             <br />
             <br />
             <hr />
-            <div id="footer" style="font-size: 80%; text-align: center;">Powered by almost nothing, all rights are reserved I guess. by the way, I'm Sajad.</div>
+            <style>
+                #footer {
+                    font-size: 80%;
+                    text-align: center;
+                }
+            </style>
+            <div id="footer">Powered by almost nothing, all rights are reserved I guess. by the way, I'm Sajad.</div>
         </div>
     </body>
 </html>
