@@ -1,29 +1,27 @@
+<!-- Design -->
+<!-- font: https://github.com/dconstruct/Bagnard/ -->
+<!-- color pallete: https://coolors.co/78a1bb-14213d-d5B942-e5e5e5-ffffff -->
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- color pallete: https://colorpalettes.net/color-palette-4194/ -->
-        <!-- font: https://github.com/dconstruct/Bagnard/ -->
         <style>
             @font-face {
                 font-family: Bagnard;
                 src: url('res/BagnardSans.otf');
             }
             sup { line-height: 0; font-size: 75%; }
-            a,a:visited,a:active {
-                background-color:#E15554;
-                color: #FFFFFF;
+            a,a:visited,a:active,a:hover {
+                background-color: #D5B942;
+                color: #000000;
                 border-radius: 0.2em;
                 padding: 0.0em 0.4em;
                 text-decoration: none;
             }
-            a:hover {
-                background-color: #E15554;
-            }
             h1,h2,h3,h4,h5,h6,b {
                 background-color: #14213D;
-                color: #FFFFFF;
+                color: #ffffff;
                 border-radius: 0.2em;
-                padding: 0.2em;
+                padding: 0.2em 0.4em;
                 width: max-content; /* only for h1-h6 */
             }
             body {
@@ -38,17 +36,10 @@
             #content {
                 border-radius: 0.4em;
                 padding: 2em;
-                background-color: #FFFFFF;
+                background-color: #ffffff;
                 margin: auto;
                 max-width: 40em;
                 min-width: 20em;
-            }
-            .after-p:after {
-                background-color: #ff0000;
-                margin-top: 1em;
-            }
-            .before-p:before {
-                margin-bottom: 1em;
             }
         </style>
         <title>Seyed Sajad Kahani's Personal Page</title>
@@ -57,11 +48,11 @@
         <div id="content">
             <style>
                 #personal {
-                    border-radius: 0.4em;
-                    width: 12em;
+                    border-radius: 0.2em;
+                    width: 10em;
                     float: right;
                 }
-                @media only screen and (max-width: 768px) {
+                @media only screen and (max-width: 600px) {
                     /* mobile devices */
                     #personal {
                         margin-top: 1em;
@@ -74,7 +65,7 @@
             <div>I am <b>Seyed Sajad Kahani</b>. <img id="personal" src="res/me.jpg" />
             </div>
             <div>
-                And the last update of this page is 22nd May 2020.
+                And the last update of this page is 4th June 2020.
             </div>
             <h3>Who am I?</h3>
             <div>
@@ -96,13 +87,13 @@
                 }
 
                 #filter .tag {
-                    border: solid 0.8pt #78a1bb;
+                    border: solid 0.8pt #AEB7B3;
                     background-color: transparent;
                     margin: 0.1em 0.0em;
                 }
                 
                 #things .tag {
-                    background-color: #78a1bb;
+                    background-color: #AEB7B3;
                     font-size: 80%;
                 }
                 
@@ -113,18 +104,19 @@
                 #nothing {
                     display: none;
                     text-align: center;
-                    color: #bbbbbe;
+                    color: #14213D;
                 }
                 #things .entry {
                     display: block;
-                    border-left: solid 1.5pt #495464;
+                    border-left: solid 1.5pt #14213D;
                     margin: 0.4em 0em;
                     padding: 0.1em 0.5em;
                     border-radius: 0.4em;
-                    background-color: #e8e8e8;
+                    background-color: #E5E5E5;
                 }
                 #things a.title {
                     background-color: transparent;
+                    color: #14213D;
                 }
                 #things .desc {
                     display: none;
@@ -184,13 +176,13 @@
                             e.preventDefault();
                             tagname = t.id.substring(4); // "tag-"
                             if (filters.includes(tagname)) {
-                                t.animate([{backgroundColor: "#b7c06f"}, 
+                                t.animate([{backgroundColor: "#AEB7B3"}, 
                                            {backgroundColor: "transparent"}],
                                           {duration: 500, fill: "forwards"});
                                 filters = filters.filter(x => x != tagname);
                             } else {
                                 t.animate([{backgroundColor: "transparent"}, 
-                                           {backgroundColor: "#b7c06f"}], 
+                                           {backgroundColor: "#AEB7B3"}], 
                                           {duration: 500, fill: "forwards"});
                                 filters.push(tagname);
                             }
@@ -239,7 +231,7 @@
             </script>
             <h3>What do I have here?</h3>
             <div>
-            These are my beloved projects, I am not going to mention every single effort that I did and neither want to recycle course projects as my personal projects. so these are really made with love, mostly by myself or by a significant contribution of mine.
+            Here is a list of things that you can have access to.
             <br />
             For other projects checkout my <a href="https://github.com/sesajad">Github</a> and for other notes checkout my <a href="https://medium.com/@SSKahani">Medium</a>
             </div>
@@ -328,23 +320,24 @@
                 <div id="nothing">nothing to show, try to remove filters</div>
             </ul>
 
-            <br />
             <h3>How can you reach me?</h3>
-            <br />
             my email address is "me [at] [this domain]".
             <br />
             or you can find me in <a href="https://twitter.com/sskahani">Twitter</a> or <a href="https://instagram.com/sskahani">Instagram</a>
 
-            <br />
-            <br />
-            <hr />
+            <p></p>
             <style>
                 #footer {
                     font-size: 80%;
                     text-align: center;
                 }
             </style>
-            <div id="footer">Powered by almost nothing, all rights are reserved I guess. by the way, I'm Sajad.</div>
+            <hr size="1" />
+            <div id="footer">
+                Powered by almost nothing.
+                <br />
+                all rights are reserved I guess. by the way, I'm Sajad.
+            </div>
         </div>
     </body>
 </html>
