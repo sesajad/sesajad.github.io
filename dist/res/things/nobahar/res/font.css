@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'IRLotus';
+    src: url('IRLotus.eot');
+    src: url('IRLotus.eot?#iefix') format('embedded-opentype'),
+        url('IRLotus.woff2') format('woff2'),
+        url('IRLotus.woff') format('woff'),
+        url('IRLotus.ttf') format('truetype'),
+        url('IRLotus.svg#IRLotus') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
